@@ -1,24 +1,9 @@
 <script setup>
-import MyHello from "@/components/MyHello.vue";
-import {ref} from 'vue'
-
-let count = ref(1);
-
-const increment = () => {
-  count.value += 1
-}
+import HomePage from './pages/Home.vue';
+import Drawer from './components/Drawer.vue';
 </script>
 
 <template>
-  <div>
-    <h1 class="mb-28 text-center">{{count}}</h1>
-    <button @click="increment">+</button>
-  </div>
-  <div>
-    <MyHello title="номер" :num="999"/>
-  </div>
+  <!-- <Drawer /> -->
+  <HomePage />
 </template>
-
-<style scoped>
-
-</style>
