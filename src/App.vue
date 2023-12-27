@@ -35,13 +35,35 @@ const fetchItems = async () => {
       params
     })
 
-    items.value = data
+    items.value = data.map(item => ({...item, isFavorite: false, isAdded: false}))
   } catch (e) {
     console.log(e)
   }
 }
 
-onMounted(fetchItems)
+const fetchFavorites = async () => {
+  try {
+    const {data: favorites} = axios.get('https://604781a0efa572c1.mokky.dev/favorites')
+
+    items.value = items.value.map(item => {
+      const favorite = favorites.find(favorite => favorite.parentId === item.id)
+      if(!favorite) {
+        return item
+      }
+      return  {
+        ...item,
+        isFavorite: true
+      }
+    })
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+onMounted( async () => {
+  await fetchItems()
+  await fetchFavorites()
+})
 watch(filters, fetchItems)
 </script>
 
